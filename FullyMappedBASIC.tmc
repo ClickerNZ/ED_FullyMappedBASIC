@@ -1,0 +1,418 @@
+
+//--------------------------------------------------------------//
+//	CMDR Clicker's Elite Dangerous Fully Mapped BASIC Script	//
+//--------------------------------------------------------------//
+
+	include "target.tmh"
+
+// "include" any other code files you need immediately after this line
+
+	include "ED_GameBindings.ttm"		// This file defines English words to DX buttons and keyboard keys to make it easier to understand what each button/switch does
+
+//-----------------------//
+// Variable declarations //
+//-----------------------//
+
+	define	ENABLED				1		// Using English definitions makes the code easier to understand
+	define	DISABLED			0
+	
+	define	ControllerCheck		ENABLED	// Set to DISABLED if you want to run the script without a valid Throttle or Joystick connected
+
+//---------//
+// Devices //
+//---------//
+
+	// These device aliases are used in place of the default WARTHOG aliases
+	// This allows us to test which hardware is connected thereby allowing for different aftermarket Thrustmaster bases and flight sticks
+	
+	alias	MyJoystick;					// Global Joystick handle. Set in ED_Main depending on which compatible Joystic/Base is connected
+	alias	MyThrottle;					// Global Throttle handle. Set in ED_Main depending on which compatible Throttle is connected
+	alias	MyRudder;					// Global Rudder handle. Set in ED_Main depending on which compatible Rudder is connected
+
+//---------//
+// Timings //
+//---------//
+
+	// These delay settings affect how fast the script executes key presses etc.
+	// If you find the macros are dropping characters, then the delay is too short.
+	// "LongPress" is a personal setting. I find a half second is about right for me.
+	
+	define 	PulseTime 			33						// PULSE+ Delay time (ms) - Used as key-hold-down time.
+	define 	DelayTime 			100						// D() Delay time 	 (ms) - Used in macros as the time between releasing one key and pressing the next.
+
+//--------------//
+// Main Program //
+//--------------//
+	
+	int main()
+	{
+		if(Init(&EventHandle)) return 1;
+
+		SetKBRate(PulseTime, DelayTime);				// See definitions for PulseTime and DelayTime, at top of script
+		SetKBLayout(KB_ENG);							// Valid alternatives to KB_ENG (English) keyboard are KB_FR (French) and KB_GER (German)
+
+
+		// -------------------------------------------------- //
+		// Initialise Hardware, LEDs, variables and functions //
+		// -------------------------------------------------- //
+
+		// Aliases MyJoystick, MyThrottle and MyRudder declared at top of script
+		// The following method eliminates user having to change the aliases for their connected hardware manually
+		
+		//   !!!   THE SCRIPT WILL ABORT IF NO COMPATIBLE JOYSTICK OR THROTTLE IS FOUND   !!!
+		
+		// There are 4 Joystick combos compatible with this script...
+
+		printf("\x0a++	Start Hardware Check\x0a");
+
+
+		&MyJoystick = &joy0;													// set to equivalent of 'nul' by default
+		
+		if (&Joystick != &joy0) {
+			&MyJoystick = &Joystick;
+			printf("\x0a\++	Connected joystick	is WARTHOG Base + F16 Flight stick.\x0a");
+		}
+		else if (&JoystickF18 != &joy0) {
+			&MyJoystick = &JoystickF18;
+			printf("++	Connected joystick	is WARTHOG Base + F18 Flight stick.\x0a");
+		}
+		else if (&AVA_F16 != &joy0) {
+			&MyJoystick = &AVA_F16;		
+			printf("++	Connected joystick	is AVA Base + F16 Flight stick.\x0a");
+		}
+		else if (&AVA_F18 != &joy0) {
+			&MyJoystick = &AVA_F18;
+			printf("++	Connected joystick	is AVA Base + F18 Flight stick.\x0a");
+		}
+		else {
+			printf("\x0a\	//////////////////////////////////////////////////////////////////////////////////\x0a");
+			printf("	!!! WARNING:	This script will not run without a compatible Joystick connected !!!\x0a");
+			printf("	//////////////////////////////////////////////////////////////////////////////////\x0a\x0a");
+			printf("	Please connect one of the following compatible JOYSTICKS:-\x0a");
+			printf("	1) WARTHOG Base with F16 Flight stick\x0a");
+			printf("	2) WARTHOG Base with F18 Flight stick\x0a");
+			printf("	3) AVA Base with F16 Flight stick\x0a");
+			printf("	4) AVA Base with F18 Flight stick\x0a");
+
+			if (ControllerCheck) {												// if DISABLED allows script to run without connected controllers. 
+				Abort();
+			}
+		}
+
+		// There is only one Throttle compatible with this script...
+		
+		&MyThrottle = &joy0;													// set to equivalent of 'nul' by default
+		
+		if (&Throttle == &joy0) {
+			printf("\x0a\	/////////////////////////////////////////////////////////////////////////////////\x0a");
+			printf("	!!! WARNING:	This script will not run without the WARTHOG Throttle connected !!!\x0a");
+			printf("	/////////////////////////////////////////////////////////////////////////////////\x0a\x0a");
+			
+			if (ControllerCheck) {												// if DISABLED allows script to run without connected controllers.
+				Abort();
+			}
+		}
+		else {
+			&MyThrottle = &Throttle;
+			printf("++	Connected throttle	is WARTHOG Replica A-10C Throttle\x0a");
+		}
+
+		// If no rudder is found the script will not abort.
+		// There are two Rudders compatible with this script...
+		
+		&MyRudder = &joy0;														// set to equivalent of 'nul' by default
+		
+		if (&TFRPRudder != &joy0) {
+			&MyRudder = &TFRPRudder;
+			printf("++	Connected rudder	is TFRPRudder.\x0a");
+		}
+		else if (&TFRPHARudder != &joy0) {
+			&MyRudder = &TFRPHARudder;
+			printf("++	Connected rudder	is TFRPHARudder.\x0a");
+		}
+		else {
+			printf("++	No compatible rudder connected. Use alt YAW control.\x0a");
+			printf("	(Joystick S3 + Throttle Coolie Switch L & R)\x0a");
+		}
+
+		printf("\x0a++	Hardware checks complete\x0a");
+		
+		// MapAxis definitions
+
+		printf("\x0a++	Map all available Axes\x0a");
+
+		MapAxis(&MyJoystick, 	JOYX, 		DX_X_AXIS);
+		MapAxis(&MyJoystick, 	JOYY, 		DX_Y_AXIS);
+		MapAxis(&MyThrottle, 	THR_LEFT,	DX_ZROT_AXIS);						// Left and Right levers are usually bound together so we tend to only use one of these in the scripts
+//		MapAxis(&MyThrottle, 	THR_RIGHT,	DX_Z_AXIS);							// which allows us to map a rudder pedal to the aptly named Z Axis, so instead, we can either LOCK the axis or comment the code
+		LockAxis(&MyThrottle, 	THR_RIGHT,	1);									// I've done both here to illustrate my point, above
+		MapAxis(&MyThrottle, 	SCX,		DX_XROT_AXIS);
+		MapAxis(&MyThrottle, 	SCY,		DX_YROT_AXIS, AXIS_REVERSED);    
+		MapAxis(&MyThrottle,	THR_FC,		DX_SLIDER_AXIS);		
+		MapAxis(&MyRudder,		TRUDDER,	DX_Z_AXIS);							// By not using DX_Z_AXIS for one Throttle lever above, we can use it here 
+		
+		printf("\x0a++	Map all axes complete\x0a");
+
+		
+// ---------------------------------------- //
+// Map Joystick triggers, switches and hats //
+// ---------------------------------------- //
+
+		// Include MapKey for everything.
+		// Include MapKeyR only where used.
+		
+		// Syntax:	MapKey(&<Device alias>, <device button/switch alias>, Assigned DX button or keypress);
+		//			PULSE+<button alias> sends a single keypress. PULSE duration defined above
+		//			For DX Button and keypress definitions, refer ED_GameBindings.ttm file 
+
+		printf("\x0a++	Start MapKey Declarations\x0a");
+
+//		(Gun Trigger - Primary Fire)
+//		----------------------------
+
+		MapKey(&MyJoystick, TG1, PrimaryFire);									// DX1
+		MapKey(&MyJoystick, TG2, 0);											// (Gun Trigger - Stage 2)	- Not mapped
+
+//		(Master Mode Control Button)
+//		----------------------------
+
+		MapKey(&MyJoystick, S1, PULSE+DeployHardpoints);						// 'U'
+	
+//		(Weapons Release Button - Secondary Fire)
+//		-----------------------------------------
+
+		MapKey(&MyJoystick, S2, SecondaryFire);									// DX2
+	
+// 		(Nosewheel Steering Button)
+//		---------------------------
+
+		MapKey(&MyJoystick, S3, 0);												//  Not mapped. Usually used as ShiftButton for IOUMD
+
+//		(Joystick Pinky Lever Switch)
+//		-----------------------------
+
+		MapKey(&MyJoystick, S4, PULSE+FlightAssist);							// 'Z' Set Flight Assist to "TOGGLE" in game binding
+
+//		(China Hat (Trim Switch))
+//		-------------------------
+
+		MapKey(&MyJoystick, H1U, PULSE+NextFireGroup);							// ',' - comma
+		MapKey(&MyJoystick, H1D, PULSE+PrevFireGroup);							// '.' - period/fullstop
+		MapKey(&MyJoystick, H1L, PULSE+LandingGear);							// 'L'
+		MapKey(&MyJoystick, H1R, PULSE+ShipLights);								// 'insert' key
+		
+//		(Target Management Switch)				// Target Designator
+//		--------------------------
+
+		MapKey(&MyJoystick, H2U, PULSE+SelectTargetAhead);						// 'T'
+		MapKey(&MyJoystick, H2D, PULSE+SelectHighestThreat);					// 'Y'
+		MapKey(&MyJoystick, H2L, PULSE+SelectNextShip);							// 'G'
+		MapKey(&MyJoystick, H2R, PULSE+SelectNextHostileShip);					// 'H'
+	
+//		(Data Management Switch)				// Power (PIP) Management
+//		------------------------
+
+		MapKey(&MyJoystick, H3U, PULSE+PowerEng);								// LeftShift+UP		arrow key combo		
+		MapKey(&MyJoystick, H3D, PULSE+BalancePower);							// LeftShift+DOWN	arrow key combo				
+		MapKey(&MyJoystick, H3L, PULSE+PowerSys);								// LeftShift+LEFT	arrow key combo		
+		MapKey(&MyJoystick, H3R, PULSE+PowerWep);								// LeftShift+RIGHT	arrow key combo	
+
+//		(Countermeasures Management Switch)		// Countermeasures and camera/FSS Zoom
+//		-----------------------------------
+
+		MapKey(&MyJoystick, H4U, PULSE+UseShieldCell);							// ''' - single quote key 
+		MapKey(&MyJoystick, H4D, PULSE+DeployHeatSink);							// 'V'
+		MapKey(&MyJoystick, H4L, ChargeECM);									// LeftShift+'C' - press to charge, release to fire
+		MapKey(&MyJoystick, H4R, PULSE+FireChaff);								// 'C'
+		MapKey(&MyJoystick, H4P, 0);											// Not mapped 
+		
+// ------------------------------------ //
+// Map Throttle LEVER switches and hats //
+// ------------------------------------ //
+
+//		(Slew Control Button)		// Press the slew control mini-joystick nub
+//		---------------------
+
+		MapKey(&MyThrottle, SC, PULSE+ResetHeadOrientation);					// '~' - Squiggle key to left of '1' on US keyboard
+
+// 		(Left Throttle Button)	// Headlook On/Off / External Camera
+//		----------------------
+
+		MapKey(&MyThrottle, LTB, PULSE+LookOnOff);								// 'O' - the letter 'o' not zero
+	
+//		(Pinky Switch)		// Shift Modifier Switch
+//		--------------
+
+		MapKey(&MyThrottle, PSF, 0);											//  Not mapped - Usually used as ShiftButton for IOUMD
+		MapKey(&MyThrottle, PSM, 0);											//  Not mapped - Usually used as ShiftButton for IOUMD
+		MapKey(&MyThrottle, PSB, 0);											//  Not mapped - Usually used as ShiftButton for IOUMD
+
+//		(Coolie Switch)		// Frame Shift Drive functions
+//		---------------
+
+		MapKey(&MyThrottle, CSU, PULSE+Supercruise);							// NP '/'	- Numberpad forward slash key 
+		MapKey(&MyThrottle, CSD, PULSE+HyperJump);								// 'J'
+		MapKey(&MyThrottle, CSL, PULSE+SelectNextSystemInRoute);				// 'M'
+		MapKey(&MyThrottle, CSR, PULSE+OrbitLines);								// '='
+	
+//		(Mike Switch)		// Alternate Pitch and Yaw (handy if you don't have rudder pedals)
+//		-------------
+
+		MapKey(&MyThrottle, MSU, PitchUp);										// LeftShift+'T'
+		MapKey(&MyThrottle, MSD, PitchDown);									// LeftShift+'G'
+		MapKey(&MyThrottle, MSL, YawLeft);										// LeftShift+'Q'
+		MapKey(&MyThrottle, MSR, YawRight);										// LeftShift+'E'
+		MapKey(&MyThrottle, MSP, 0);											// Not mapped
+		
+//		(Speed Brake)		// Reverse Throttle and Boost
+//		-------------
+
+		MapKey(&MyThrottle, SPDF, PULSE+ReverseThrottle);						// NP '*' - Numberpad '*' key
+		MapKeyR(&MyThrottle, SPDF, PULSE+ReverseThrottle);						// RELEASE - Map Reverse Thrust in game binding as "HOLD"
+
+		MapKey(&MyThrottle, SPDB, PULSE+EngineBoost);							// LeftShift+'B'
+		
+//		(Boat Switch)		//
+//		-------------
+
+		MapKey(&MyThrottle, BSF, 0);											// Not mapped
+		MapKey(&MyThrottle, BSM, 0);											// Not mapped
+		MapKey(&MyThrottle, BSB, 0);											// Not mapped
+	
+//		(China Hat)			// Subsystem Targetting
+//		-----------
+
+		MapKey(&MyThrottle, CHF, PULSE+TargetNextSubsystem);					// 'I'
+		MapKey(&MyThrottle, CHB, PULSE+TargetPrevSubsystem);					// 'K'
+		
+// ---------------------------------------//
+// Map Throttle BASE buttons and switches //
+// ---------------------------------------//
+
+//		(AutoPilot Select)
+//		------------------
+
+		MapKey(&MyThrottle, APPAT, 0);											// Not mapped
+		MapKey(&MyThrottle, APAH,  0);											// Not mapped
+		MapKey(&MyThrottle, APALT, 0);											// Not mapped
+		
+//		(Enhanced Attitude Control (EAC) Arm/Off)
+//		-----------------------------------------
+
+		MapKey(&MyThrottle, EACON, PULSE+SilentRunning);						// 'DELETE' key
+		MapKey(&MyThrottle, EACOFF, PULSE+SilentRunning);						// Map "Silent Running" within game binding to TOGGLE
+		
+//		(Radar Altimeter)
+//		-----------------
+
+		MapKey(&MyThrottle, RDRNRM, PULSE+CargoScoop);							// 'HOME' key 
+		MapKey(&MyThrottle, RDRDIS, PULSE+CargoScoop);							// Map "Corgo Scoop" within game binding to TOGGLE
+
+//		(Landing Gear Horn)
+//		-------------------
+
+		MapKey(&MyThrottle, LDGH, 0);											// Not mapped
+
+//		(Autopilot Engage)
+//		------------------
+
+		MapKey(&MyThrottle, APENG, 0);											// Not mapped
+
+//		(Flaps) - 3 position switch 
+//		---------------------------
+
+		MapKey(&MyThrottle, FLAPU, PULSE+GalMap);								// LeftShift+';'	- Open Galaxy Map 
+		MapKeyR(&MyThrottle, FLAPU, PULSE+GalMap);								// RELEASE			- Close Galaxy Map 
+		
+		MapKey(&MyThrottle, FLAPM, 0);											// Not mapped		- We use MapKeyR on FLAPU and FLAPD instead as we'd need extra coding to close Galaxy Map or System Map
+		
+		MapKey(&MyThrottle, FLAPD, PULSE+SystemMap);							// ';'				- Open System Map 
+		MapKeyR(&MyThrottle, FLAPD, PULSE+SystemMap);							// RELEASE			- Close System Map 			
+		
+//		(Auxiliary Power Unit)
+//		----------------------
+
+		MapKey(&MyThrottle, APUON, 0);											// Not mapped
+		MapKey(&MyThrottle, APUOFF, 0);											// Not mapped
+
+//		(Engine Operate - Right) - 3 position switch 
+//		--------------------------------------------
+
+		MapKey(&MyThrottle, EORIGN, 0);											// Not mapped - momentary contact switch 
+		MapKey(&MyThrottle, EORNORM, 0);										// Not mapped - middle position 
+
+		MapKey(&MyThrottle, EORMOTOR, PULSE+HideShipGUI);						// LeftControl+LeftALT+'G'	- Toggle: Ship GUI OFF
+		MapKeyR(&MyThrottle, EORMOTOR, PULSE+HideShipGUI);						// RELEASE					- Map  "Hide Ship GUI" within game bindings to TOGGLE 
+
+//		(Engine Operate - Left) - 3 position Switch 
+//		-------------------------------------------
+
+		MapKey(&MyThrottle, EOLIGN, 0);											// Not mapped 	- momentary contact switch  
+		MapKey(&MyThrottle, EOLNORM, 0);										// Not mapped	- middle position 
+		MapKey(&MyThrottle, EOLMOTOR, PULSE+WeaponColour);						// LeftAlt+'W'	- Toggle Weapon Colours - requires Weapon Colour bought from Frontier Store
+
+//		(Engine Fuel Flow - Right)
+//		--------------------------
+
+		MapKey(&MyThrottle, EFRNORM, 0);										// Not mapped
+		MapKey(&MyThrottle, EFROVER, 0);										// Not mapped
+
+//		(Engine Fuel Flow - Left)
+//		-------------------------
+
+		MapKey(&MyThrottle, EFLNORM, 0);										// Not mapped
+		MapKey(&MyThrottle, EFLOVER, 0);										// Not mapped				
+
+//		(Engine Idle - Left)													// No point having both of the following unless the Throttle is decoupled
+//		--------------------
+
+		MapKey(&MyThrottle, IDLELON, 0);										// Not mapped
+		MapKey(&MyThrottle, IDLELOFF, 0);										// Not mapped
+
+//		(Engine Idle - Right)													// I've included both for sake of completeness			
+//		---------------------
+		
+		MapKey(&MyThrottle, IDLERON, 0);										// Not mapped
+		MapKey(&MyThrottle, IDLEROFF, 0);										// Not mapped				
+
+		printf("\x0a++	MapKey Declarations Completed\x0a");
+		
+		printf("\x0a++	Script ready ... START the game\x0a");
+		
+	}
+	
+//------------------//
+// End Main Program //
+//------------------//
+
+
+//-----------//
+// Functions //
+//-----------//
+
+//	Add as many functions as you like
+
+	// FUNCTION:	<function name>
+	// Purpose:		<function purpose>
+	// Parameters:	<parameter list and function>
+		
+//	int	<function name>() {
+//		   /* local variable definition */
+//		   int <varname> = <value>;
+//
+//		   /* code logic goes here */
+//				 
+//		   return 0;
+//
+//	}
+
+//---------------//
+// Event Handler //
+//---------------//
+
+	int EventHandle(int type, alias o, int x)
+	{
+	    DefaultMapping(&o, x);
+	
+		/* add event handling code here */
+	}
