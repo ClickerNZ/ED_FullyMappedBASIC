@@ -51,8 +51,8 @@
 
 		// WEAPON CONTROL //
 		
-	define PrimaryFire 							DX1						// JOY 1 (Also mapped to LSHIFT+1 in ED Bindings)	
-	define SecondaryFire 						DX2						// JOY 2 (Also mapped to LSHIFT+2 in ED Bindings)
+	define PrimaryFire 							DX1						// JOY1
+	define SecondaryFire 						DX2						// JOY2
 	
 	define DeployHardpoints 					USB[0x18] 				// U
 	define NextFireGroup 						USB[0x36]				// ,
