@@ -205,8 +205,8 @@
 
 		MapKey(&MyThrottle, MSU, PitchUp);										// LeftShift+'T'
 		MapKey(&MyThrottle, MSD, PitchDown);									// LeftShift+'G'
-		MapKey(&MyThrottle, MSL, YawLeft);										// LeftShift+'Q'
-		MapKey(&MyThrottle, MSR, YawRight);										// LeftShift+'E'
+		MapKey(&MyThrottle, MSL, YawRight);										// LeftShift+'E'
+		MapKey(&MyThrottle, MSR, YawLeft);										// LeftShift+'Q'
 		MapKey(&MyThrottle, MSP, 0);											// Not mapped
 		
 //		(Speed Brake)		// Reverse Throttle and Boost
