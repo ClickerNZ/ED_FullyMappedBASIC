@@ -136,10 +136,10 @@ EXAMPLE:
 > MapKey(&MyThrottle, BSF, PULSE+'a');
 >    
 > device = MyThrottle  
-> button name = BSF = Boat Switch Forward (Boat Switch is the red thumb switch on the Throttle arm).  
+> button name = CHF = China Hat Forward (China Hat is the red thumb switch on the Throttle arm).  
 > keypress = a  
    
-ie. sends an 'a' keypress to the game when you press the red Boat Switch on the throttle forward.  
+ie. sends an 'a' keypress to the game when you press the red China Hat Switch on the throttle forward.  
 
 Check out my image files within the 'Map Files' folder for all the button and switch names used by TARGET script.  
 
