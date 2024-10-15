@@ -4,14 +4,72 @@ Basic WARTHOG TARGET script with no smarts
 
 ### PURPOSE
 
-The purpose of this script is to give people who may be new to Elite Dangerous and have a Thrustmaster WARTHOG Joystick and Throttle, a starting point should they want to get into TARGET scripting now, or maybe in the future.  
+The purpose of this script is to give people who may be new to Elite Dangerous and have a Thrustmaster WARTHOG Joystick and Throttle, a starting point should they want to use their expensive joystick properly and/or get into TARGET scripting now, or maybe in the future.  
+
+Why bother? I hear you ask.  
+We can plug the Joystick and/or Throttle into our PC and just bind everything manually by pressing buttons left, right and center and off we go!  
+
+Yep, you sure can.  
+
+One small problem, Elite Dangerous runs out of DX inputs due to its maximum of 32.  
+So what? We'll just carefully map the 32 buttons and don't worry about the rest.  
+
+Yep, you sure can.  
+
+My old man (here we go!) when he watched me hammer a nail whilst holding the handle half way to the head said..."son, I paid for the whole hammer, use the whole damn hammer!".  
+Well, there is that.  
+
+I seem to recall the WARTHOG Throttle and Joystick combo cost me something like NZ$900 about 6 or so years ago.  
+That's quite the expensive hammer.  
+
+Prior to the Thrustmaster and in those days here in NZ, the next "best" joystick for E:D was (arguably) a Logitech X56 @ NZ$300-ish.  
+I went through two of these in 18 months, so I bit the bullet.  
+
+Aussiedroid (on the forums) had a comprehensive script that used every single button, switch or do-hickey on the thing!  
+It took some getting used to but is mostly intuitive, and I was hooked.  
+
+This is NOT THAT SCRIPT.  
+
+Again, why bother?  
+A lot of people try out Aussiedroid's script, or my full blown script, and most have trouble getting it going, have trouble getting used to it, don't understand it, or want it to do backflips instead, etc etc.  
+
+I wrote this script mainly to allow easy troubleshooting or as a starter script that's better than the feeble attempt provided by Thrustmaster.  
+It has MapAxis statements for every axis. It has Mapkey statements for every button (some don't do anything, but they are mapped).  
+
+Anyway, here it is.  
+A basic, no frills, no smarts, joystick and throttle script you can use pretty much out of the box.
+It will allow you to use "the whole damn hammer" if that's what you want to do.  
+
 
 ### REQUIREMENTS
 
-To use this script you will need a THRUSTMASTER WARTHOG Throttle and a Thrustmaster F16 or F18 Flight stick connected to a Warthog or AVA base. Rudder pedals are not required, but recommended.  
+To use this script you will need a THRUSTMASTER WARTHOG Throttle, a Thrustmaster F16 or F18 Flight stick connected to a Warthog or AVA base. Rudder pedals are not required, but recommended.  
   
 Also, you will need the latest firmware for these devices and the very latest version of TARGET software.  
 Whilst the latest version of TARGET software now supports 64 DX inputs, sadly, at time of writing, Elite: Dangerous still only supports 32 DX inputs.  
+
+I said above that there's no smarts in the script.  
+Not entirely true.  
+
+The script will check for compatible hardware (as decsribed earlier this paragraph) and will ABORT if you don't have at least;  
+
+- Thrustmaster F16 or F18 flight stick...  
+- connected to either a  warthog or AVA base  
+- Thrustmaster WARTHOG Throttle  
+
+If you have eitheer of the following compatible rudder pedals, they too will work with this script and the script will NOT ABORT if you don't;  
+
+- TFRPRudder  
+- TFRPHARudder  
+
+What about the T16000 series Joysticks and TWCS Throttles? I hear you cry.  
+These are a lot more affordable than teh WARTHOG and very good choice for playing Elite Dangerous.  
+
+Make no promises, tell no lies...this script won't work for you, BUT...  
+If there's enough interest, I'll create one...let me know in the ED forums.  
+("enough interest" > 5 people. Well, maybe 3. You could twist my arm even if there's only 1!)  
+Bear in mind, I do not own a set of these JS+Throttles so would require a "side-kick" who does and can test it.  
+
 
 ### ZIP PACKAGE  
 
