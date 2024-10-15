@@ -76,7 +76,22 @@ Read on.
 
 My script uses 36 seperate pre-defined actions.  
 
-![Joystick Actions](/MapFiles/ED_JoystickChart-BASIC-ACTIONS.png)  
+---  
+
+<figure>  
+    <img src="/MapFiles/ED_JoystickChart-BASIC-ACTIONS.png" width="640">      
+</figure>  
+
+<center>ED_JoystickChart - ACTIONS</center>  
+
+---  
+
+<figure>
+    <img src="/MapFiles/ED_ThrottleChart-BASIC-ACTIONS.png" width="640">
+    <figcaption>          ED_ThrottleChart - ACTIONS</figcaption>
+</figure>  
+
+---  
 
 If you are happy to go with these then things are pretty simple, you are done.  
 However, if you want to change what the buttons and switches do, then there are several ways to accomplish this.  
@@ -128,6 +143,24 @@ ie. sends an 'a' keypress to the game when you press the red Boat Switch on the 
 
 Check out my image files within the 'Map Files' folder for all the button and switch names used by TARGET script.  
 
+---  
+
+<figure>  
+    <img src="/MapFiles/Warthog-Joystick-Chart-BUTTONS.png" width="640">  
+    <centre><figcaption>ED_JoystickChart - BUTTON NAMES</figcaption></centre>
+</figure>  
+
+---  
+
+<figure>
+    <img src="/MapFiles/Warthog-Throttle-Chart-BUTTONS.png" width="640">
+    <figcaption>          ED_ThrottleChart - BUTTON NAMES</figcaption>
+</figure>  
+
+---  
+
+
+
 #### OPTION 2 - Best for a dozen or so BIND changes  
 
 This is a better option if there's not too many BINDS you want to change.
@@ -140,15 +173,17 @@ This is a better option if there's not too many BINDS you want to change.
 - Go through each of the defines and change the USB code for your preferred key or key combo.  
 
 > At the very bottom of the file there is a USB code table for reference.
+
   
 As mentioned DX# numbers show up as JOY# within the bind process in game.  
+  
 Simply change the USB code to the DX#.  
 Example, if you use JOY3 for a button instead of a keypress, change the define for that button to DX3  
 
-### WARNING: 
-You can only assign a maximum of 32 DX numbers.  
-This is a limitation of Elite Dangerous and not TARGET.  
+> :warning: **Warning:** 
+You can only assign a maximum of 32 DX numbers. This is a limitation of Elite Dangerous and not TARGET.  
 
+  
 ### CHANGE BUTTON ACTIONS  
   
 Edit the ED_FullyMappedBASIC.tmc file using notepad (or Notepad++)  
