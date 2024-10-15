@@ -4,15 +4,14 @@ Basic WARTHOG TARGET script with no smarts
 
 ### PURPOSE
 
-The prupose of this script is to give people who may be new to Elite Dangerous and have a Thrustmaster WARTHOG Joystick and Throttle, a starting point should they want to get into TARGET scripting now, or maybe in the future.  
+The purpose of this script is to give people who may be new to Elite Dangerous and have a Thrustmaster WARTHOG Joystick and Throttle, a starting point should they want to get into TARGET scripting now, or maybe in the future.  
 
 ### REQUIREMENTS
 
-To use this script you will need a THRUSTMASTER WARTHOG Throttle and a Thrustmaster F16 or F18 Flight stick connected to a Warthog or AVA base.  
-Rudder pedals are not required, but recommended.  
+To use this script you will need a THRUSTMASTER WARTHOG Throttle and a Thrustmaster F16 or F18 Flight stick connected to a Warthog or AVA base. Rudder pedals are not required, but recommended.  
   
 Also, you will need the latest firmware for these devices and the very latest version of TARGET software.  
-Whilst the latest version of TARGET software now supports 64 DX inputs, sadly, at time of writing, Elite: Dangerous only supports 32 DX inputs.  
+Whilst the latest version of TARGET software now supports 64 DX inputs, sadly, at time of writing, Elite: Dangerous still only supports 32 DX inputs.  
 
 ### ZIP PACKAGE  
 
@@ -22,12 +21,17 @@ The zip file contains the following:
 - This readme.md file  
 - A Map Files folder which contains  
   * 2x Image files for each of the Throttle and Joystick
-  * 1x showing the button and switch actions for each
-  * 1x showing the button and switch names for each, used within the script  
+  * 1x showing the button and switch actions for each (helps with game usage while you are coming up to speed)  
+  * 1x showing the button and switch names for each (helps if/when you need to dig under the covers and take on some scripting)  
 - A Bind Files folder which contains
   * Binds files supporting Odessey and Horizons as well as the earlier legacy versions  
 
 ### INSTALLATION
+
+If you have just bought a Thrustmaster WARTHOG or AVA Throttle and Joystick, you can be up a running very quickly.  
+You will, however need to spend some time becoming accustomed to what the buttons and switches all do.  
+
+The \'Map Files\' folder contains some images which should help with this, so I recommend you print these out.
 
 - Unzip the package to a local drive/folder of your choice.
 - I suggest creating c:\Thrustmaster and copying into there.
@@ -48,23 +52,36 @@ The zip file contains the following:
 If you get a syntax error, try to resolve, save and click 'compile'.  
 Repeat as necessary.  
 
-Once the script is running (console will have 'main returned 0') if everything is ok.  
+Once the script is running the script editor console will show 'main returned 0' if everything is ok.  
 
 If the script aborts, it might mean you do not have the required controllers connected.  
 Read the abort error message carefully.  
-If you get stuck post a query in the Elite Dangerous forums.  
+If you get stuck, post a query in the Elite Dangerous forums.  
 
 Assuming the script compiled and runs fine, start Elite Dangerous.  
 
-### SETTING THE SCRIPT BINDS IN  GAME
+> NOTE: You need to always run the script before starting the game  
+
+### SETTING SCRIPT BINDS IN  GAME
 
 Once the game is running, hit escape key and choose OPTIONS then CONTROLS then each of the GENERAL, SHIP and SRV.  
-Set the PRESET for each of these to 'Clicker-FullyMappedBASIC' and hit APPLY for each one.  
+Set the PRESET for each of these to 'Clicker-FullyMappedBASIC' and hit APPLY for each one then go flying!  
+
+But, what if I want to change some of the actions bound to a button or switch?  
+What if I want to change them all?  
+
+Read on.  
 
 ### CHANGING BINDS  
-My script uses 36 seperate pre-defined actions. 
 
-This where things get a bit messy so you will need a healthy dose of patience if you want to change a lot of the pre-configured binds in this package.  
+My script uses 36 seperate pre-defined actions.  
+
+![Joystick Actions](/MapFiles/ED_JoystickChart-BASIC-ACTIONS.png)  
+
+If you are happy to go with these then things are pretty simple, you are done.  
+However, if you want to change what the buttons and switches do, then there are several ways to accomplish this.  
+
+This is where things might get a bit complicated, so you will need a healthy dose of patience if you want to change a lot of the pre-configured binds in this package.  
 
 No doubt if you have been playing Elite Dangerous for a while you will already have your own preferred binds.  
 If you want to use this script but want to use your own binds then this is what you can do...  
