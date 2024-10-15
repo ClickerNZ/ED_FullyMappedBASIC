@@ -79,9 +79,10 @@ My script uses 36 seperate pre-defined actions.
 ---  
 
 <figure>  
-    <img src="/MapFiles/ED_JoystickChart-BASIC-ACTIONS.png" width="640">  
-    <centre><figcaption>ED_JoystickChart - ACTIONS</figcaption></centre>
+    <img src="/MapFiles/ED_JoystickChart-BASIC-ACTIONS.png" width="640">      
 </figure>  
+
+<center>ED_JoystickChart - ACTIONS</center>  
 
 ---  
 
