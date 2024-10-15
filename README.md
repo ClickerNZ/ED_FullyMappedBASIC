@@ -63,7 +63,7 @@ If you have either of the following compatible rudder pedals, they too will work
 - TFRPHARudder  
 
 What about the T16000 series Joysticks and TWCS Throttles? I hear you cry.  
-These are a lot more affordable than teh WARTHOG and very good choice for playing Elite Dangerous.  
+These are a lot more affordable than the WARTHOG and very good choice for playing Elite Dangerous.  
 
 Make no promises, tell no lies...this script won't work for you, BUT...  
 If there's enough interest, I'll create one...let me know in the ED forums.  
@@ -188,7 +188,7 @@ The syntax is:
 > - Use PULSE for binds with a TOGGLE setting.  
 > - Don't use PULSE for binds with a HOLD setting. Simply HOLD the button on the device for these like you would a keyboard key.
 >   
-> keypress = key you want to use. Example 'a' (include the single quotees)  
+> keypress = key you want to use. Example 'a' (include the single quotes)  
 
 EXAMPLE:  
 > MapKey(&MyThrottle, BSF, PULSE+'a');
