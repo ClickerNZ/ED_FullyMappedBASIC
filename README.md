@@ -57,7 +57,7 @@ The script will check for compatible hardware (as decsribed earlier this paragra
 - connected to either a  warthog or AVA base  
 - Thrustmaster WARTHOG Throttle  
 
-If you have eitheer of the following compatible rudder pedals, they too will work with this script and the script will NOT ABORT if you don't;  
+If you have either of the following compatible rudder pedals, they too will work with this script and the script will NOT ABORT if you don't;  
 
 - TFRPRudder  
 - TFRPHARudder  
