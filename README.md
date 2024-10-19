@@ -1,6 +1,6 @@
-# ED_FullyMappedBASIC
+# ED_BASIC_Warthog  
 
-Basic WARTHOG TARGET script with no smarts
+Basic WARTHOG TARGET script with no smarts for Thrustmaster WARTHOG HOTAS
 
 ### PURPOSE
 
@@ -74,7 +74,7 @@ Bear in mind, I do not own a set of these JS+Throttles so would require a "side-
 ### ZIP PACKAGE  
 
 The zip file contains the following:  
-- ED_FullyMappedBASIC.tmc main script file which contains all the configuration axes and button mapping  
+- ED_BASIC_Warthog.tmc main script file which contains all the configuration axes and button mapping  
 - ED_GameBindings.ttm script support file which contains definitions of various keypresses and DX inputs
 - This readme.md file  
 - A Map Files folder which contains  
@@ -103,7 +103,7 @@ The \'Map Files\' folder contains some images which should help with this, so I 
 ### USAGE
 
 - Open the TARGETScriptEditor program.  
-- Open ED_FullyMappedBASIC.tmc  
+- Open ED_BASIC_Warthog.tmc  
 - Click 'compile'  
 - If you get no errors, hit 'run'  
 
@@ -120,10 +120,10 @@ Assuming the script compiled and runs fine, start Elite Dangerous.
 
 > NOTE: You need to always run the script before starting the game  
 
-### SETTING SCRIPT BINDS IN  GAME
+### SETTING SCRIPT BINDS IN GAME
 
 Once the game is running, hit escape key and choose OPTIONS then CONTROLS then each of the GENERAL, SHIP and SRV.  
-Set the PRESET for each of these to 'Clicker-FullyMappedBASIC' and hit APPLY for each one then go flying!  
+Set the PRESET for each of these to 'Clicker-BASIC_Warthog' and hit APPLY for each one then go flying!  
 
 But, what if I want to change some of the actions bound to a button or switch?  
 What if I want to change them all?  
@@ -137,7 +137,7 @@ My script uses 36 seperate pre-defined actions.
 ---  
 
 <figure>  
-    <img src="/MapFiles/ED_JoystickChart-BASIC-ACTIONS.png" width="640">      
+    <img src="/MapFiles/ED_JoystickChart-BASIC-WARTHOG-ACTIONS.png" width="640">      
 </figure>  
 
 <center>ED_JoystickChart - ACTIONS</center>  
@@ -145,7 +145,7 @@ My script uses 36 seperate pre-defined actions.
 ---  
 
 <figure>
-    <img src="/MapFiles/ED_ThrottleChart-BASIC-ACTIONS.png" width="640">
+    <img src="/MapFiles/ED_ThrottleChart-BASIC-WARTHOG-ACTIONS.png" width="640">
     <figcaption>          ED_ThrottleChart - ACTIONS</figcaption>
 </figure>  
 
@@ -165,7 +165,7 @@ You have 2 options here...
 
 This option has a hard limit (32) on the number of buttons and switches you can map.  
 
-- Comment out the 'MapAllKeys()' call on line 72 in ED_FullyMappedBASIC.tmc file by adding 2x slashes at the beginning of the line (ie. //)
+- Comment out the 'MapAllKeys()' call on line 72 in ED_BASIC_Warthog.tmc file by adding 2x slashes at the beginning of the line (ie. //)
 - Compile and run the script.
 - Run Elite Dangerous
 - Go to OPTIONS | CONTROLS
@@ -176,7 +176,7 @@ Anything after 32 you will need to assign a keypress.
 If you don't want or need to use a joystick or throttle button to send these keypresses, you are done!  
 
 Otherwise, note the keypresses down if you want to use with an otherwise unmapped joystick or throttle button.  
-Edit ED_FullyMappedBASIC.tmc using notepad (I prefer and use Notepad++). 
+Edit ED_BASIC_Warthog.tmc using notepad (I prefer and use Notepad++). 
 Directly after line 72 that you commented out earlier start entering MapKey definitions for only those buttons you want to map a keypress to.  
 
 The syntax is: 
@@ -244,7 +244,7 @@ You can only assign a maximum of 32 DX numbers. This is a limitation of Elite Da
   
 ### CHANGE BUTTON ACTIONS  
   
-Edit the ED_FullyMappedBASIC.tmc file using notepad (or Notepad++)  
+Edit the ED_BASIC_Warthog.tmc file using notepad (or Notepad++)  
 Starting on line 111 is the Mapkey assignment subroutine which is called from Line 72 of the script.  
   
 So long as you are happy with my preconfigured actions, simply and swap the action part between buttons.  
