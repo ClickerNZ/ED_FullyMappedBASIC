@@ -288,12 +288,12 @@ So they are now
 ...next...  
 Change the action part of the MapKey statements to match the action definition  
 > MapKey(&MyJoystick, H1L, PULSE+RollLeft);    // LSHIFT+W  
-> MapKey(&MyJoystick, H1R, PULSE+RollRighht);  // LSHIFT+S  
+> MapKey(&MyJoystick, H1R, PULSE+RollRight);   // LSHIFT+S  
     
 When testing this you might find the Ship Roll is not as smooth as you'd like.  
 Try removing PULSE+.  
 >  MapKey(&MyJoystick, H1L, RollLeft);   // LSHIFT+W  
-> MapKey(&MyJoystick, H1R, RollRighht);  // LSHIFT+S  
+>  MapKey(&MyJoystick, H1R, RollRight);  // LSHIFT+S  
   
 The ship should now roll smoothly for as long as you are holding the button.  
   
@@ -301,5 +301,9 @@ The ship should now roll smoothly for as long as you are holding the button.
   
 If you get stuck or just want to understand more, post a question in the forum, or PM me.  
   
+Fly dangerously commands!  
+
+o7  
+
 Cheers  
 Clicker  
